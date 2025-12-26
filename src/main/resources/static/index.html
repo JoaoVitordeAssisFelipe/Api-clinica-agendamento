@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Prontuário Médico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+<div class="max-w-5xl mx-auto">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold text-gray-800">Pacientes Cadastrados</h1>
+        <a href="/view/pacientes/novo" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+            + Novo Paciente
+        </a>
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+        <table class="min-w-full leading-normal">
+            <thead>
+            <tr class="bg-gray-800 text-white text-left text-sm uppercase font-semibold">
+                <th class="px-5 py-3 border-b">ID</th>
+                <th class="px-5 py-3 border-b">Nome</th>
+                <th class="px-5 py-3 border-b">Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="paciente : ${pacientes}" class="hover:bg-gray-50 border-b border-gray-200 text-sm">
+                <td class="px-5 py-5" th:text="${paciente.id}">1</td>
+                <td class="px-5 py-5" th:text="${paciente.nome}">João Silva</td>
+                <td class="px-5 py-5">
+                    <a th:href="@{/view/prontuarios/{id}(id=${paciente.prontuario.id})}"
+                       class="text-blue-600 hover:text-blue-900 font-bold mr-4">
+                        Ver Prontuário
+                    </a>
+                    <a href="#" class="text-gray-600 hover:text-gray-900">Editar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="max-w-2xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+    <div class="bg-blue-600 p-4">
+        <h1 class="text-white text-2xl font-bold">Ficha do Paciente</h1>
+    </div>
+
+    <div class="p-6">
+        <div class="mb-4">
+            <label class="text-gray-500 text-sm uppercase font-bold">Nome do Paciente:</label>
+            <p class="text-xl text-gray-800" th:text="${prontuario.paciente().nome}">João Silva</p>
+        </div>
+
+        <hr class="my-4">
+
+        <div>
+            <label class="text-gray-500 text-sm uppercase font-bold">Histórico de Observações:</label>
+            <ul class="mt-2 space-y-2">
+                <li th:each="obs : ${prontuario.observacoes()}"
+                    class="bg-blue-50 border-l-4 border-blue-500 p-3 text-gray-700 italic">
+                    "<span th:text="${obs}">Observação médica aqui</span>"
+                </li>
+            </ul>
+
+            <p th:if="${#lists.isEmpty(prontuario.observacoes())}" class="text-gray-400 mt-2">
+                Nenhuma observação registrada.
+            </p>
+        </div>
+    </div>
+
+    <div class="bg-gray-50 p-4 border-t text-right">
+        <a href="/view/pacientes" class="text-blue-600 hover:underline">Voltar para pacientes</a>
+    </div>
+</div>
+
+</body>
+</html>
