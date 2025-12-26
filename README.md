@@ -38,7 +38,6 @@ O projeto segue a arquitetura em camadas padrão do Spring Boot para garantir a 
 3.  **Repository:** Camada de persistência responsável pela comunicação direta com o banco de dados (JPA/Hibernate).
 4.  **Model (Entity):** Representação das tabelas do banco de dados e seus relacionamentos.
 
-### Diagrama de Classes Simplificado
 
 ```mermaid
 classDiagram
